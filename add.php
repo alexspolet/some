@@ -7,7 +7,10 @@
  */
 session_start();
 
-if (!(isset($_SESSION['auth']) AND $_SESSION['auth']) OR ( isset($_COOKIE['login']) === 'admin' AND isset($_COOKIE['pass']) AND $_COOKIE['pass'] === md5('123456'))){
+if (!((isset($_SESSION['auth']) AND $_SESSION['auth']) OR ( isset($_COOKIE['login']) AND $_COOKIE['login'] === 'admin' AND isset($_COOKIE['pass']) AND $_COOKIE['pass'] === md5('123456')))){
+    var_dump($_COOKIE);
+    var_dump($_SESSION);
+    die(__FILE__ . ' ' . __LINE__);
     header('location: auth.php');
 }
 $dir = './articles';
