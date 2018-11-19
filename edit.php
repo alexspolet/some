@@ -17,15 +17,15 @@ $dir = './articles';
 $mainfile = 'index.php';
 
 $fname = trim(filter_input(INPUT_GET , 'fname' , FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+
+if (!(isset($fname) AND $fname !== ''  AND file_exists($dir . '/' . $fname))){
+  echo 'oops. 404 page<br><a href="'. $mainfile .'">To the main</a>';
+}else{
 $title = $fname;
 $path = $dir . '/' . $title;
 $text = file_get_contents($path);
 $errors = [];
 
-
-if ($fname==''){
-  echo 'oops. 404 page';
-}else {
   if (!empty($_POST)) {
     $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 

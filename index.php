@@ -13,7 +13,6 @@ $files = scandir($dir);
 
 if (isAuth()){
 ?>
-
 <p><a href="account.php">To the private account</a></p>
 
 <?php
@@ -25,7 +24,13 @@ if (isAuth()){
 echo '<hr>';
 foreach ($files as $file){
   if (is_file($dir . '/' .$file)) {
-    echo "<p><a href='article.php?fname=$file'>$file</a></p>";
+    echo "<p><a href='article.php?fname=$file'>$file</a>";
+    if (isAuth()){
+        echo '<a href="edit.php?fname=' . $file . '" class="del">Edit</a>';
+        echo '<a href="delete.php?fname=' . $file . '">Delete</a>';
+
+    }
+    echo "</p>";
   }
 }
 echo '<hr>';
