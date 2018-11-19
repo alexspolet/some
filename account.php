@@ -9,6 +9,7 @@
 session_start();
 require_once 'functions.php';
 
+
 if (isAuth()){
   echo "<p>Hello admin. You authorized successfully</p>";
   echo "<p><a href='index.php'>To the main page</a></p>";
@@ -17,8 +18,7 @@ if (isAuth()){
   exit();
 }
 
-if (!empty($_POST)){
-
+if (!empty($_POST) AND isset($_POST['exit'])){
   $_SESSION['auth'] = false;
 
   setcookie('login' , 'admin' , time()-1); /*unset ($_COOKIE['login']);*/

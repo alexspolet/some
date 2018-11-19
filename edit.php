@@ -6,6 +6,7 @@
  * Time: 22:06
  */
 session_start();
+require_once 'functions.php';
 
 if (!isAuth()){
   header('location: auth.php');
@@ -22,40 +23,41 @@ $text = file_get_contents($path);
 $errors = [];
 
 
+if ($fname==''){
+  echo 'oops. 404 page';
+}else {
+  if (!empty($_POST)) {
+    $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-if (!empty($_POST)) {
-    $title = filter_input(INPUT_POST , 'title' , FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-
-  if (preg_match('/[\/\\\:*?|]/' ,$title )){
-    $errors[] = 'Chars: /\:*?«| are forbidden in names of files';
-  }
-
-  $text = trim(filter_input(INPUT_POST, 'text', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
-
-  $fname= trim(filter_input(INPUT_GET, 'fname', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
-
-  //echo $fname;
-  $path = $dir . '/' . $title;
-  if ($title === '' OR $text === '') {
-    $errors[] = 'All fields must be full';
-  }
-  if (file_exists($path) AND $fname != $title ) {
-    $errors[] = 'File with this name already exists. Choose another title';
-  }
-
-
-  if ($errors) {
-    foreach ($errors as $error) {
-      echo "<p>$error</p>";
+    if (preg_match('/[\/\\\:*?|]/', $title)) {
+      $errors[] = 'Chars: /\:*?«| are forbidden in names of files';
     }
-  }else{
+
+    $text = trim(filter_input(INPUT_POST, 'text', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+
+    /* $fname= trim(filter_input(INPUT_GET, 'fname', FILTER_SANITIZE_FULL_SPECIAL_CHARS));*/
+
+    $path = $dir . '/' . $title;
+    if ($title === '' OR $text === '') {
+      $errors[] = 'All fields must be full';
+    }
+    if (file_exists($path) AND $fname != $title) {
+      $errors[] = 'File with this name already exists. Choose another title';
+    }
+
+
+    if ($errors) {
+      foreach ($errors as $error) {
+        echo "<p>$error</p>";
+      }
+    } else {
       $oldPath = $dir . '/' . $fname;
       unlink($oldPath);
-    file_put_contents($path , $text);
-    header("location: article.php?fname=$title");
-    exit();
+      file_put_contents($path, $text);
+      header("location: article.php?fname=$title");
+      exit();
+    }
   }
-}
 
 
   ?>
@@ -65,3 +67,5 @@ if (!empty($_POST)) {
         <input type="submit" value="save">
     </form>
 <?
+
+}

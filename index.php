@@ -29,7 +29,7 @@ foreach ($files as $file){
   }
 }
 echo '<hr>';
-if ((isset($_SESSION['auth']) AND $_SESSION['auth']) OR ( isset($_COOKIE['login']) AND $_COOKIE['login'] === 'admin' AND isset($_COOKIE['pass']) AND $_COOKIE['pass'] === md5('123456'))){
+if (isAuth()){
   echo '<p><a href="add.php">Add new article</a></p>';
 
 }

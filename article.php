@@ -18,7 +18,9 @@ $fname =  trim(filter_input(INPUT_GET , 'fname' , FILTER_SANITIZE_ENCODED));
 $path = $dir . '/' . $fname;
 
 if (!file_exists($path) OR !is_file($path)){
-  echo 'ooops. 404';
+  echo 'ooops. 404<br>';
+  echo  '<a href="'. $mainfile . '">To the main page</a>';
+  exit();
 }else{
   $title = $fname;
   $text = file($path);
