@@ -6,6 +6,7 @@
  * Time: 17:49
  */
 session_start();
+require_once 'functions.php';
 
 $mainfile = 'index.php';
 $dir = './articles';
@@ -30,7 +31,7 @@ if (!file_exists($path) OR !is_file($path)){
 <p><?=$paragraph?></p>
 <?endforeach;?>
 <?endif;?>
-<?if ((isset($_SESSION['auth']) AND $_SESSION['auth']) OR ( isset($_COOKIE['login']) AND $_COOKIE['login'] === 'admin' AND isset($_COOKIE['pass']) AND $_COOKIE['pass'] === md5('123456'))):?>
+<?if (isAuth()):?>
 <p><a href="edit.php?fname=<?=$title?>">Edit article</a></p>
 <?endif;?>
 <p><a href="<?=$mainfile?>">To the main page</a></p>

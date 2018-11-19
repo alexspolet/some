@@ -7,8 +7,9 @@
  */
 session_start();
 
-if (!((isset($_SESSION['auth']) AND $_SESSION['auth']) OR ( isset($_COOKIE['login']) AND $_COOKIE['login'] === 'admin' AND isset($_COOKIE['pass']) AND $_COOKIE['pass'] === md5('123456')))){
+if (!isAuth()){
   header('location: auth.php');
+  exit();
 }
 
 $dir = './articles';
@@ -52,6 +53,7 @@ if (!empty($_POST)) {
       unlink($oldPath);
     file_put_contents($path , $text);
     header("location: article.php?fname=$title");
+    exit();
   }
 }
 

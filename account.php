@@ -7,12 +7,14 @@
  */
 
 session_start();
+require_once 'functions.php';
 
-if ((isset($_SESSION['auth']) AND $_SESSION['auth']) OR (isset($_COOKIE['login']) AND $_COOKIE['login'] === 'admin' AND isset($_COOKIE['pass']) AND $_COOKIE['pass'] === md5('123456'))){
+if (isAuth()){
   echo "<p>Hello admin. You authorized successfully</p>";
   echo "<p><a href='index.php'>To the main page</a></p>";
 } else {
-  header('location: auth.php');;
+  header('location: auth.php');
+  exit();
 }
 
 if (!empty($_POST)){
@@ -23,7 +25,7 @@ if (!empty($_POST)){
   setcookie('pass' , md5('123456') , time()-1); /*unset ($_COOKIE['pass']);*/
 
   header('location: index.php');
-
+  exit();
 }
 ?>
 

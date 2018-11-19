@@ -6,9 +6,11 @@
  * Time: 17:51
  */
 session_start();
+require_once 'functions.php';
 
-if (!((isset($_SESSION['auth']) AND $_SESSION['auth']) OR ( isset($_COOKIE['login']) AND $_COOKIE['login'] === 'admin' AND isset($_COOKIE['pass']) AND $_COOKIE['pass'] === md5('123456')))){
+if (!isAuth()){
     header('location: auth.php');
+  exit();
 }
 $dir = './articles';
 $mainfile = 'index.php';
@@ -47,6 +49,7 @@ echo $fname .  '<br>';
 
       file_put_contents($path , $text);
       header("location: $mainfile");
+    exit();
   }
 }
 

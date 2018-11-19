@@ -6,11 +6,14 @@
  * Time: 11:30
  */
 session_start();
+require_once 'functions.php';
+
 $accountFile = './account.php';
 $error = '';
 
-if ((isset($_SESSION['auth']) AND $_SESSION['auth']) OR (isset($_COOKIE['login']) AND $_COOKIE['login'] === 'admin' AND isset($_COOKIE['pass']) AND $_COOKIE['pass'] === md5('123456'))){
+if (isAuth()){
   header("location: $accountFile");
+  exit();
 }
 $login = '';
 $pass = '';
@@ -32,6 +35,7 @@ if (!empty($_POST)){
       setcookie('pass'  , md5($pass)  , time() + 3600 * 24);
     }
     header("location: $accountFile");
+    exit();
   }else{
    $error = 'Invalid error or password';
   }
