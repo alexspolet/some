@@ -6,6 +6,8 @@
  * Time: 9:32
  */
 
+
+
 function connectDb(){
   $db = new PDO('mysql:host=localhost;dbname=blog', 'admin', '123456');
 
@@ -23,11 +25,20 @@ function isAuth(){
   return true;
 }
 
-
+//index.php
 function getAllArticles($db){
   $query = "SELECT title FROM articles";
   $stmt = $db->prepare($query);
   $stmt->execute();
   $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  return $res;
+}
+
+//add.php
+function addArticleToDb($db, $title, $text){
+  $query = "INSERT INTO articles (title, text) VALUES (?, ?)";
+  $stmt = $db->prepare($query);
+  $stmt->execute([$title , $text]);
+  $res = $db->lastInsertId();
   return $res;
 }

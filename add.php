@@ -8,8 +8,8 @@
 session_start();
 require_once 'functions.php';
 
-if (!isAuth()){
-    header('location: auth.php');
+if (!isAuth()) {
+  header('location: auth.php');
   exit();
 }
 $dir = './articles';
@@ -23,16 +23,13 @@ if (!empty($_POST)) {
 
   $title = trim(filter_input(INPUT_POST, 'title', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
 
-  if (preg_match('/[\/\\\:*?|]/' ,$title )){
-      $errors[] = 'Chars: /\:*?«| are forbidden in names of files';
+  if (preg_match('/[\/\\\:*?|]/', $title)) {
+    $errors[] = 'Chars: /\:*?«| are forbidden in names of files';
   }
 
   $text = trim(filter_input(INPUT_POST, 'text', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
   $path = $dir . '/' . $title;
 
-echo $title .  '<br>';
-echo $text .  '<br>';
-echo $fname .  '<br>';
 
   if ($title === '' OR $text === '') {
     $errors[] = 'All fields must be full';
@@ -45,10 +42,16 @@ echo $fname .  '<br>';
     foreach ($errors as $error) {
       echo "<p>$error</p>";
     }
-  }else{
+  } else {
 
-      file_put_contents($path , $text);
-      header("location: $mainfile");
+    $db = connectDb();
+    $res = addArticleToDb($db, $title, $text);
+    if(!$res){
+        echo '<p>Error. We cannot add article to the db</p>';
+    }
+
+    //file_put_contents($path, $text);
+    header("location: $mainfile");
     exit();
   }
 }
