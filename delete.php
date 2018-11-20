@@ -13,11 +13,21 @@ if (!isAuth()){
   header('location: index.php');
   exit();
 }
-$dir = './articles';
-$fname = trim(filter_input(INPUT_GET, 'fname' , FILTER_SANITIZE_STRING));
-$path =  $dir . '/' . $fname;
-if (!(isset($fname) AND $fname != '' AND file_exists($path))){
-  echo 'oooops. This file is not exists <br><a href="index.php">To the main page</a>';
-  exit();
+$mainfile = 'index.php';
+$id = $_GET['aid'];
+
+$db = connectDb();
+$article = getArticle($db, $id);
+
+if (!$article){
+  $error = 'Article not found';
+}else{
+  $res = deleteArticle($db, $article['id']);
+  if (!$res){
+    $error = 'Cannot delete this article';
+  }
 }
-unlink($path);
+
+require_once 'view/delete_v.php';
+
+

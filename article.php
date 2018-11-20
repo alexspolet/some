@@ -12,6 +12,8 @@ $mainfile = 'index.php';
 $id = $_GET['aid'];
 $db = connectDb();
 $article = getArticle($db, $id);
-
+if(!$article){
+  header("location:$mainfile");
+}
 require_once 'view/article_v.php';
 

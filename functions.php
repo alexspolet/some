@@ -67,3 +67,11 @@ function editArticle($db, $id, $title, $text){
   $res = $stmt->execute([$title, $text, $id]);
   return $res;
 }
+
+//delete.php
+function deleteArticle($db, $id){
+  $query = "DELETE FROM articles WHERE id=?";
+  $stmt = $db->prepare($query);
+  $res =$stmt->execute([$id]);
+  return $res;
+}
