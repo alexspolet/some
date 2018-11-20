@@ -12,7 +12,7 @@ if (!isAuth()) {
   header('location: auth.php');
   exit();
 }
-$dir = './articles';
+
 $mainfile = 'index.php';
 
 $title = '';
@@ -23,19 +23,24 @@ if (!empty($_POST)) {
 
   $title = trim(filter_input(INPUT_POST, 'title', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
 
-  if (preg_match('/[\/\\\:*?|]/', $title)) {
-    $errors[] = 'Chars: /\:*?«| are forbidden in names of files';
-  }
-
   $text = trim(filter_input(INPUT_POST, 'text', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
-  $path = $dir . '/' . $title;
+  //$path = $dir . '/' . $title;
 
 
   if ($title === '' OR $text === '') {
     $errors[] = 'All fields must be full';
   }
-  if (file_exists($path)) {
+  $db = connectDb();
+
+  /*if (file_exists($path)) {
     $errors[] = 'File with this name already exists. Choose another title';
+  }*/
+
+  $articles = getAllArticles($db);
+  foreach ($articles as $article){
+      if ($title === $article['title']){
+          $errors[] = 'An article with such name already exists';
+      }
   }
 
   if ($errors) {
@@ -44,22 +49,16 @@ if (!empty($_POST)) {
     }
   } else {
 
-    $db = connectDb();
+
     $res = addArticleToDb($db, $title, $text);
     if(!$res){
         echo '<p>Error. We cannot add article to the db</p>';
     }
 
-    //file_put_contents($path, $text);
     header("location: $mainfile");
     exit();
   }
 }
 
-?>
-<form action="<?= $_SERVER['PHP_SELF'] ?>" method="post">
-    <p>Enter title <br><input type="text" value="<?= $title ?>" name="title"></p>
-    <p>Enter text <br><textarea name="text" cols="50" rows="10"><?= $text ?></textarea></p>
-    <input type="submit" value="save">
-</form>
+require_once 'view/add_v.php';
 
