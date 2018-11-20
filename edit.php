@@ -15,6 +15,11 @@ if (!isAuth()){
 
 $mainfile = 'index.php';
 $errors = [];
+
+if (!isset($_GET['aid']) OR $_GET['aid'] == ''){
+  header("location: $mainfile");
+}
+
 $id = $_GET['aid'];
 
 $db = connectDb();
