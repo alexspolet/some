@@ -52,3 +52,18 @@ function getArticle($db, $id){
   $res = $stmt->fetch(PDO::FETCH_ASSOC);
   return $res;
 }
+
+//edit.php
+/**
+ * @param $db
+ * @param $id
+ * @param $title
+ * @param $text
+ * @return mixed bool if article was added to db return true, if not return false;
+ */
+function editArticle($db, $id, $title, $text){
+  $query = "UPDATE articles SET title=?, text=? WHERE id=?";
+  $stmt = $db->prepare($query);
+  $res = $stmt->execute([$title, $text, $id]);
+  return $res;
+}

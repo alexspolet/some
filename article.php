@@ -12,5 +12,6 @@ $mainfile = 'index.php';
 $id = $_GET['aid'];
 $db = connectDb();
 $article = getArticle($db, $id);
+
 require_once 'view/article_v.php';
 
