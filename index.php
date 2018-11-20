@@ -24,10 +24,10 @@ $db = connectDb();
 $articles = getAllArticles($db);
 
 foreach ($articles as $item) {
-  echo "<p><a href='article.php?fname={$item['title']}'>{$item['title']}</a>";
+  echo "<p><a href='article.php?aid={$item['id']}'>{$item['title']}</a>";
   if (isAuth()) {
-    echo '<a href="edit.php?fname=' . $item['title'] . '" class="del">Edit</a>';
-    echo '<a href="delete.php?fname=' . $item['title'] . '">Delete</a>';
+    echo '<a href="edit.php??aid=' . $item['id'] . '" class="del">Edit</a>';
+    echo '<a href="delete.php??aid=' . $item['id'] . '">Delete</a>';
   }
 }
 

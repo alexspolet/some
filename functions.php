@@ -27,7 +27,7 @@ function isAuth(){
 
 //index.php
 function getAllArticles($db){
-  $query = "SELECT title FROM articles";
+  $query = "SELECT id, title FROM articles";
   $stmt = $db->prepare($query);
   $stmt->execute();
   $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -35,10 +35,20 @@ function getAllArticles($db){
 }
 
 //add.php
-function addArticleToDb($db, $title, $text){
+function addArticle($db, $title, $text){
   $query = "INSERT INTO articles (title, text) VALUES (?, ?)";
   $stmt = $db->prepare($query);
   $stmt->execute([$title , $text]);
   $res = $db->lastInsertId();
+  return $res;
+}
+
+//article.php
+
+function getArticle($db, $id){
+  $query = "SELECT * FROM articles WHERE id=?";
+  $stmt = $db->prepare($query);
+  $stmt->execute([$id]);
+  $res = $stmt->fetch(PDO::FETCH_ASSOC);
   return $res;
 }

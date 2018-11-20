@@ -50,7 +50,7 @@ if (!empty($_POST)) {
   } else {
 
 
-    $res = addArticleToDb($db, $title, $text);
+    $res = addArticle($db, $title, $text);
     if(!$res){
         echo '<p>Error. We cannot add article to the db</p>';
     }
