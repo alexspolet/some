@@ -73,13 +73,13 @@
 				</div>
 
 			<!-- Features -->
-				<div id="features-wrapper">
+				<!--<div id="features-wrapper">
 					<div class="container">
 						<div class="row">
-							<div class="col-4 col-12-medium">
+							<div class="col-4 col-12-medium">-->
 
 								<!-- Box -->
-									<section class="box feature">
+									<!--<section class="box feature">
 										<a href="#" class="image featured"><img src="../images/pic01.jpg" alt="" /></a>
 										<div class="inner">
 											<header>
@@ -91,10 +91,10 @@
 									</section>
 
 							</div>
-							<div class="col-4 col-12-medium">
+							<div class="col-4 col-12-medium">-->
 
 								<!-- Box -->
-									<section class="box feature">
+									<!--<section class="box feature">
 										<a href="#" class="image featured"><img src="../images/pic02.jpg" alt="" /></a>
 										<div class="inner">
 											<header>
@@ -106,10 +106,10 @@
 									</section>
 
 							</div>
-							<div class="col-4 col-12-medium">
+							<div class="col-4 col-12-medium">-->
 
 								<!-- Box -->
-									<section class="box feature">
+									<!--<section class="box feature">
 										<a href="#" class="image featured"><img src="../images/pic03.jpg" alt="" /></a>
 										<div class="inner">
 											<header>
