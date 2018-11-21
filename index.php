@@ -6,7 +6,9 @@
  * Time: 17:36
  */
 session_start();
-require_once 'functions.php';
+require_once 'model/system_m.php';
+require_once 'model/articles_m.php';
+
 
 $db = connectDb();
 $articles = getAllArticles($db);

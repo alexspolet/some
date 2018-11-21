@@ -6,7 +6,9 @@
  * Time: 17:51
  */
 session_start();
-require_once 'functions.php';
+require_once 'model/system_m.php';
+require_once 'model/articles_m.php';
+
 
 if (!isAuth()) {
   header('location: auth.php');
@@ -37,10 +39,10 @@ if (!empty($_POST)) {
   }*/
 
   $articles = getAllArticles($db);
-  foreach ($articles as $article){
-      if ($title === $article['title']){
-          $errors[] = 'An article with such name already exists';
-      }
+  foreach ($articles as $article) {
+    if ($title === $article['title']) {
+      $errors[] = 'An article with such name already exists';
+    }
   }
 
   if ($errors) {
@@ -51,8 +53,8 @@ if (!empty($_POST)) {
 
 
     $res = addArticle($db, $title, $text);
-    if(!$res){
-        echo '<p>Error. We cannot add article to the db</p>';
+    if (!$res) {
+      echo '<p>Error. We cannot add article to the db</p>';
     }
 
     header("location: $mainfile");

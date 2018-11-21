@@ -7,9 +7,11 @@
  */
 
 session_start();
-require_once 'functions.php';
+require_once 'model/system_m.php';
+require_once 'model/articles_m.php';
 
-if (!isAuth()){
+
+if (!isAuth()) {
   header('location: index.php');
   exit();
 }
@@ -19,11 +21,11 @@ $id = $_GET['aid'];
 $db = connectDb();
 $article = getArticle($db, $id);
 
-if (!$article){
+if (!$article) {
   $error = 'Article not found';
-}else{
+} else {
   $res = deleteArticle($db, $article['id']);
-  if (!$res){
+  if (!$res) {
     $error = 'Cannot delete this article';
   }
 }
