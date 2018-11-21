@@ -10,6 +10,7 @@ session_start();
 require_once 'model/system_m.php';
 require_once 'model/articles_m.php';
 
+$main_vPath = 'view/main_v.php';
 
 $auth = isAuth();
 if (!$auth) {
@@ -27,6 +28,11 @@ if (!empty($_POST) AND isset($_POST['exit'])) {
   exit();
 }
 $path = getPath();
-echo renderHtml($path);
+ $content = renderHtml($path);
 
+$html = renderHtml($main_vPath, [
+     'content' => $content,
+   'title' => 'account'
+ ]);
 
+echo $html;
