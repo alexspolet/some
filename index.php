@@ -6,36 +6,12 @@
  * Time: 17:36
  */
 session_start();
-require_once 'functions.php';
+require_once 'model/auth_m.php';
+require_once 'model/db_m.php';
+require_once 'model/articles_m.php';
 
-$dir = './articles';
-$files = scandir($dir);
+$auth = isAuth();
+$db = connectDb();
+$articles = getAllArticles($db);
 
-if (isAuth()){
-?>
-<p><a href="account.php">To the private account</a></p>
-
-<?php
-  }else{
-  ?>
-  <p><a href="auth.php">Authorization</a></p>
-  <?
-}
-echo '<hr>';
-foreach ($files as $file){
-  if (is_file($dir . '/' .$file)) {
-    echo "<p><a href='article.php?fname=$file'>$file</a>";
-    if (isAuth()){
-        echo '<a href="edit.php?fname=' . $file . '" class="del">Edit</a>';
-        echo '<a href="delete.php?fname=' . $file . '">Delete</a>';
-
-    }
-    echo "</p>";
-  }
-}
-echo '<hr>';
-if (isAuth()){
-  echo '<p><a href="add.php">Add new article</a></p>';
-
-}
-
+require_once 'view/index_v.php';
