@@ -17,3 +17,18 @@ function isAuth(){
   }
   return true;
 }
+
+function renderHtml($path , $vars = []){
+  ob_start();
+  extract($vars);
+  include_once $path;
+  $res = ob_get_clean();
+  return $res;
+}
+
+function getPath(){
+  $file = $_SERVER['PHP_SELF'];
+  $file = substr($file , 0 , -4);
+  $path = 'view' . $file . '_v.php';
+  return $path;
+}

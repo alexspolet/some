@@ -11,29 +11,22 @@ require_once 'model/system_m.php';
 require_once 'model/articles_m.php';
 
 
-
-if (isAuth()){
-  echo "<p>Hello admin. You authorized successfully</p>";
-  echo "<p><a href='index.php'>To the main page</a></p>";
-} else {
+$auth = isAuth();
+if (!$auth) {
   header('location: auth.php');
   exit();
 }
 
-if (!empty($_POST) AND isset($_POST['exit'])){
+if (!empty($_POST) AND isset($_POST['exit'])) {
   $_SESSION['auth'] = false;
 
-  setcookie('login' , 'admin' , time()-1); /*unset ($_COOKIE['login']);*/
-  setcookie('pass' , md5('123456') , time()-1); /*unset ($_COOKIE['pass']);*/
+  setcookie('login', 'admin', time() - 1); /*unset ($_COOKIE['login']);*/
+  setcookie('pass', md5('123456'), time() - 1); /*unset ($_COOKIE['pass']);*/
 
   header('location: index.php');
   exit();
 }
-?>
+$path = getPath();
+echo renderHtml($path);
 
 
-
-<form action="<?=$_SERVER['PHP_SELF']?>" method="post">
-  <input type="submit" value="exit" name="exit">
-</form>
-<?
