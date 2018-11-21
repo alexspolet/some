@@ -10,7 +10,9 @@ require_once 'model/auth_m.php';
 require_once 'model/db_m.php';
 require_once 'model/articles_m.php';
 
+
 $auth = isAuth();
+
 $db = connectDb();
 $articles = getAllArticles($db);
 
