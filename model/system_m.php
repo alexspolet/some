@@ -32,3 +32,12 @@ function getPath(){
   $path = 'view' . $file . '_v.php';
   return $path;
 }
+
+function validateParams($title , $text){
+  $errors = [];
+  if ($title === '' OR $text === '') {
+    $errors = 'All fields must be full';
+  }
+
+  return $errors;
+}
