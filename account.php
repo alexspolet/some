@@ -9,8 +9,8 @@
 session_start();
 require_once 'model/system_m.php';
 require_once 'model/articles_m.php';
+require_once 'model/global_vars.php';
 
-$main_vPath = 'view/main_v.php';
 
 $auth = isAuth();
 if (!$auth) {

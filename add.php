@@ -8,15 +8,13 @@
 session_start();
 require_once 'model/system_m.php';
 require_once 'model/articles_m.php';
+require_once 'model/global_vars.php';
 
-
-if (!isAuth()) {
+$auth = isAuth();
+if (!$auth) {
   header('location: auth.php');
   exit();
 }
-
-$main_vPath = 'view/main_v.php';
-$mainfile = 'index.php';
 
 $title = '';
 $text = '';

@@ -132,7 +132,7 @@
 							<div class="col-4 col-12-medium">
 
 								<!-- Sidebar -->
-									<div id="sidebar">
+									<!--<div id="sidebar">
 										<section class="widget thumbnails">
 											<h3>Interesting stuff</h3>
 											<div class="grid">
@@ -145,7 +145,7 @@
 											</div>
 											<a href="#" class="button icon fa-file-text-o">More</a>
 										</section>
-									</div>
+									</div>-->
 
 							</div>
 							<div class="col-8 col-12-medium imp-medium">
