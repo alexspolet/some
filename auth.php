@@ -8,12 +8,12 @@
 session_start();
 require_once 'model/system_m.php';
 require_once 'model/articles_m.php';
-
+require_once 'model/global_vars.php';
 
 $accountFile = './account.php';
 $error = '';
-
-if (isAuth()) {
+$auth = isAuth();
+if ($auth) {
   header("location: $accountFile");
   exit();
 }
@@ -25,7 +25,7 @@ if (!empty($_POST)) {
   $login = filter_input(INPUT_POST, 'login', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
   $pass = filter_input(INPUT_POST, 'pass', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-  if (isset ($_POST['setCookie']) /*AND $_POST['setCookie'] !== ''*/) {
+  if (isset ($_POST['setCookie']) ) {
     $setCookie = 'checked="checked"';
   }
 
@@ -42,14 +42,4 @@ if (!empty($_POST)) {
     $error = 'Invalid error or password';
   }
 }
-?>
 
-<form action="<?= $_SERVER['PHP_SELF'] ?>" method="post">
-    <p>Enter login<input type="text" name="login" value="<?= $login ?>"></p>
-    <p>Enter password<input type="password" name="pass" value="<?= $pass ?>"></p>
-    <p>Remember me <input type="checkbox" name="setCookie" <?= $setCookie ?>></p>
-    <input type="submit" value="go">
-</form>
-<? if ($error): ?>
-    <p><?= $error ?></p>
-<? endif; ?>
