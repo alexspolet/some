@@ -9,13 +9,14 @@
 session_start();
 require_once 'model/system_m.php';
 require_once 'model/articles_m.php';
+require_once 'model/global_vars.php';
 
-
-if (!isAuth()) {
+$auth = isAuth();
+if (!$auth) {
   header('location: index.php');
   exit();
 }
-$mainfile = 'index.php';
+
 $id = $_GET['aid'];
 
 $db = connectDb();
@@ -30,6 +31,16 @@ if (!$article) {
   }
 }
 
-require_once 'view/delete_v.php';
+$path = getPath();
+$content = renderHtml($path, [
+    'mainfile' => $mainfile,
+    'error' => $error
+]);
 
+$html = renderHtml($main_vPath , [
+    'title' => 'delete',
+    'content' => $content
+]);
+
+echo $html;
 

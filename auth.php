@@ -43,3 +43,17 @@ if (!empty($_POST)) {
   }
 }
 
+$path = getPath();
+$content = renderHtml($path, [
+ 'login' => $login,
+ 'pass' => $pass,
+ 'setCookie' => $setCookie,
+ 'error' => $error
+]);
+
+$html = renderHtml($main_vPath , [
+    'title' => 'authorization',
+    'content' => $content
+    ]);
+
+echo $html;

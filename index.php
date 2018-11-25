@@ -9,7 +9,7 @@ session_start();
 require_once 'model/system_m.php';
 require_once 'model/articles_m.php';
 
-
+$auth = isAuth();
 $db = connectDb();
 $articles = getAllArticles($db);
 
