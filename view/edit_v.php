@@ -3,3 +3,8 @@
   <p>Enter text <br><textarea name="text" cols="50" rows="10"><?= $text ?></textarea></p>
   <input type="submit" value="save">
 </form>
+<?if ($errors) : ?>
+<?foreach ($errors as $error) : ?>
+<p><?=$error?></p>
+<?endforeach;?>
+<?endif;?>

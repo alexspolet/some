@@ -43,24 +43,30 @@ if (!$article){
       $errors[] = 'All fields must be full';
     }
 
-    if ($errors) {
-      foreach ($errors as $error) {
-        echo "<p>$error</p>";
-      }
-    } else {
+    if (!$errors) {
       $res = editArticle($db, $id, $title, $text);
       if ($res){
         header("location: article.php?aid=$id");
         exit();
       }else{
-          echo '<p>Error. Cannot edit the article</p>';
+          $errors[] = 'Error. Cannot edit the article';
       }
-
     }
   }
-
-  ?>
-
-<?
-
 }
+
+$path = getPath();
+var_dump($path);
+$content = renderHtml($path, [
+    'id' => $id,
+    'title' => $title,
+    'text' => $text,
+    'errors' => $errors
+]);
+
+$html = renderHtml($main_vPath, [
+    'content' => $content,
+    'title' => 'Add article'
+]);
+
+echo $html;
