@@ -7,12 +7,9 @@
  */
 session_start();
 
-$auth = isAuth();
-
 require_once 'model/system_m.php';
 require_once 'model/articles_m.php';
 require_once 'model/global_vars.php';
-
 
 $auth = isAuth();
 $db = connectDb();
