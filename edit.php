@@ -6,14 +6,17 @@
  * Time: 22:06
  */
 session_start();
-require_once 'functions.php';
+require_once 'model/system_m.php';
+require_once 'model/articles_m.php';
+require_once 'model/global_vars.php';
 
-if (!isAuth()){
+$auth = isAuth();
+if (!$auth){
   header('location: auth.php');
   exit();
 }
 
-$mainfile = 'index.php';
+
 $errors = [];
 
 if (!isset($_GET['aid']) OR $_GET['aid'] == ''){
@@ -40,28 +43,29 @@ if (!$article){
       $errors[] = 'All fields must be full';
     }
 
-    if ($errors) {
-      foreach ($errors as $error) {
-        echo "<p>$error</p>";
-      }
-    } else {
+    if (!$errors) {
       $res = editArticle($db, $id, $title, $text);
       if ($res){
         header("location: article.php?aid=$id");
         exit();
       }else{
-          echo '<p>Error. Cannot edit the article</p>';
+          $errors[] = 'Error. Cannot edit the article';
       }
-
     }
   }
-
-  ?>
-    <form action="<?=$_SERVER['PHP_SELF']?>?aid=<?=$id?>" method="post">
-        <p>Enter title <br><input type="text" value="<?= $title ?>" name="title"></p>
-        <p>Enter text <br><textarea name="text" cols="50" rows="10"><?= $text ?></textarea></p>
-        <input type="submit" value="save">
-    </form>
-<?
-
 }
+
+$path = getPath();
+$content = renderHtml($path, [
+    'id' => $id,
+    'title' => $title,
+    'text' => $text,
+    'errors' => $errors
+]);
+
+$html = renderHtml($main_vPath, [
+    'content' => $content,
+    'title' => 'Add article'
+]);
+
+echo $html;

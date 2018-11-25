@@ -7,27 +7,40 @@
  */
 
 session_start();
-require_once 'functions.php';
+require_once 'model/system_m.php';
+require_once 'model/articles_m.php';
+require_once 'model/global_vars.php';
 
-if (!isAuth()){
+$auth = isAuth();
+if (!$auth) {
   header('location: index.php');
   exit();
 }
-$mainfile = 'index.php';
-$id = $_GET['aid'];
 
+$id = $_GET['aid'];
+$error = '';
 $db = connectDb();
 $article = getArticle($db, $id);
 
-if (!$article){
+if (!$article) {
   $error = 'Article not found';
-}else{
+} else {
   $res = deleteArticle($db, $article['id']);
-  if (!$res){
+  if (!$res) {
     $error = 'Cannot delete this article';
   }
 }
 
-require_once 'view/delete_v.php';
+$path = getPath();
+$content = renderHtml($path, [
+    'mainfile' => $mainfile,
+    'error' => $error
+]);
 
+$html = renderHtml($main_vPath , [
+    'title' => 'delete',
+    'content' => $content
+]);
+
+echo $html;
 
