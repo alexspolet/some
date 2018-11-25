@@ -56,7 +56,6 @@ if (!$article){
 }
 
 $path = getPath();
-var_dump($path);
 $content = renderHtml($path, [
     'id' => $id,
     'title' => $title,

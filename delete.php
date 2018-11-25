@@ -18,7 +18,7 @@ if (!$auth) {
 }
 
 $id = $_GET['aid'];
-
+$error = '';
 $db = connectDb();
 $article = getArticle($db, $id);
 

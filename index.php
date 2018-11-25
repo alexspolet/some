@@ -8,9 +8,21 @@
 session_start();
 require_once 'model/system_m.php';
 require_once 'model/articles_m.php';
+require_once 'model/global_vars.php';
 
 $auth = isAuth();
 $db = connectDb();
 $articles = getAllArticles($db);
 
-require_once 'view/index_v.php';
+$path = getPath();
+$content = renderHtml($path, [
+    'auth' => $auth,
+    'articles' => $articles,
+]);
+
+$html = renderHtml($main_vPath, [
+    'content' => $content,
+    'title' => 'Main page'
+]);
+
+echo $html;

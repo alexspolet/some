@@ -9,7 +9,7 @@
 <p>
   <a href="article.php?aid=<?=$item['id']?>"><?=$item['title']?></a>
   <?if ($auth):?>
-    <a href="edit_v.php?aid=<?=$item['id']?>">Edit</a>
+    <a href="edit.php?aid=<?=$item['id']?>">Edit</a>
     <a href="delete.php?aid=<?=$item['id']?>">Delete</a>
 
   <?endif;?>
